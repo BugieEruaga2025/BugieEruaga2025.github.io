@@ -1,0 +1,348 @@
+@keyframes float-in {
+	0% {
+		translate: var(--float-in-from);
+		opacity: 0;
+	}
+	100% {
+		translate: var(--float-in-to);
+		opacity: 1;
+	}
+}
+
+@keyframes gradient { 
+	0% {background-position: 0%} 100% {background-position: 100%} 
+}
+
+@media (prefers-reduced-motion) {
+	@keyframes float-in {
+		0% {
+			translate: var(--float-in-to);
+			opacity: 0;
+		}
+		100% {
+			translate: var(--float-in-to);
+			opacity: 1;
+		}
+	}
+
+	@keyframes wiggle-underline {
+		0% {
+			mask-position: calc(-1 * var(--wiggle-period)) top;
+		}
+		100% {
+			mask-position: calc(-1 * var(--wiggle-period)) top;
+		}
+	}
+}  
+
+
+body {
+	background: linear-gradient(45deg, #24AADB, #27DBB1); 
+	animation: gradient 16s linear infinite;
+	animation-direction: alternate; 
+}
+/* .wrapper { 
+	width: 100%; 
+	height: 100%; 
+	position: absolute; 
+	background-size: 600% 100%;
+} */
+	
+
+
+
+#loader {
+	position: fixed; /* Fixed positioning */
+	top: 50%; /* Center vertically */
+	left: 50%; /* Center horizontally */
+	transform: translate(-50%, -50%); /* Adjust position */
+	z-index: 9999; /* Ensure it’s above all other content */
+	display: none; /* Initially hidden */
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	scroll-behavior: smooth;
+}
+
+:root {
+	--text: #fdfdff;
+	--text-60: #fdfdff99;
+	--accent: #008799;
+
+	--line-spacing-body: 150%;
+	--line-spacing-display: 125%;
+
+	--text-scale: 1svh;
+
+	font-family: "Plus Jakarta Sans", "Inter", "Inter UI", system-ui;
+	font-size: 1.25em;
+	line-height: var(--line-spacing-body);
+
+	overflow: hidden;
+}
+
+a {
+	color: inherit;
+}
+
+body {
+	background-color: #027d8d var(--accent);
+	/* background-image: url("/images/bg2.jpg"); */
+	background-size: 100% 100%;
+	color: var(--text);
+
+	position: relative;
+	width: 100vw;
+	height: 100svh;
+	overflow: hidden;
+
+	padding: calc(8 * var(--text-scale));
+
+	display: grid;
+	grid-template:
+		"h2 h1" auto
+		"nav nav" minmax(max-content, 1fr)
+		"footer footer" auto
+		/ 1fr auto;
+	gap: 1em;
+}
+
+body {
+	background: linear-gradient(45deg, #24AADB, #27DBB1); 
+	animation: gradient 16s linear infinite;
+	animation-direction: alternate; 
+}
+
+body > h1 {
+	grid-area: h1;
+	text-align: right;
+	font-size: max(1rem, calc(4 * var(--text-scale)));
+	line-height: var(--line-spacing-display);
+	letter-spacing: -0.02em;
+
+	--float-in-from: 0 0;
+	--float-in-to: 0 0;
+	animation: float-in 0.5s 1.2s ease both; 
+}
+
+body > h2 {
+	grid-area: h2;
+	font-size: max(1rem, calc(8 * var(--text-scale)));
+	letter-spacing: -0.02em;
+	line-height: var(--line-spacing-display);
+}
+
+body > h2 > em {
+	font-style: normal;
+	position: relative;
+}
+
+body > h2 > * {
+	display: inline-block;
+	--float-in-from: 0 5svh;
+	animation: float-in 0.5s ease both;
+}
+
+body > h2 > :nth-child(1) {
+	animation-delay: 0.3s;
+}
+
+body > h2 > :nth-child(2) {
+	animation-delay: 0.35s;
+}
+
+body > h2 > :nth-child(3) {
+	animation-delay: 0.4s;
+	padding-right: 1em;
+}
+
+/* skip the line break */
+
+body > h2 > :nth-child(5) {
+	animation-delay: 0.45s;
+}
+
+body > h2 > :nth-child(6) {
+	animation-delay: 0.5s;
+}
+
+body > nav {
+	grid-area: nav;
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	justify-content: center;
+}
+
+body > nav > a {
+	display: flex;
+	align-items: center;
+	justify-content: left;
+	max-width: max-content;
+	gap: 0.5em;
+
+	text-decoration: none;
+	font-size: max(1rem, calc(4 * var(--text-scale)));
+	line-height: var(--line-spacing-display);
+	font-weight: 700;
+
+	padding: 0.125em;
+	padding-left: 0em;
+	transition: padding-left 0.3s ease, color 0.15s ease;
+
+	--float-in-from: -5svh 5svh;
+	animation: float-in 0.5s ease both;
+}
+
+body > nav > a:nth-child(1) {
+	animation-delay: 0.8s;
+}
+
+body > nav > a:nth-child(2) {
+	animation-delay: 0.9s;
+}
+
+body > nav > a:nth-child(3) {
+	animation-delay: 1s;
+}
+
+
+body > nav:has(a:hover) a:not(:hover) {
+	color: var(--text-60);
+	transition: padding-left 0.3s ease, color 0.15s ease;
+}
+
+body > nav > a:hover {
+	padding-left: 0.5em;
+	transition: padding-left 0.15s ease, color 0.15s ease;
+}
+
+body > nav > a::before {
+	content: " ";
+	display: inline-block;
+	width: 0.8em;
+	height: 0.8em;
+	margin-top: 0.1em;
+
+	background-image: url("../images/link-arrow.svg");
+	background-size: contain;
+	background-position: center;
+	pointer-events: none;
+	
+	translate: 0 0;
+	transition: translate 0.3s ease, opacity 0.15s ease;
+}
+
+body > nav > a:hover::before {
+	translate: 0 -0.5em;
+	transition: translate 0.15s ease, opacity 0.15s ease;
+}
+
+body > nav:has(a:hover) > a:not(:hover)::before  {
+	opacity: 0.6;
+}
+
+@media (prefers-reduced-motion) {
+	body > nav > a:hover {
+		padding-left: 0;
+	}
+	body > nav > a:hover::before {
+		translate: 0 0;
+	}
+}
+
+body > footer {
+	grid-area: footer;
+
+	font-size: 0.8em;
+	line-height: var(--line-spacing-body);
+	letter-spacing: 0.04em;
+
+	--float-in-from: 0 0;
+	--float-in-to: 0 0;
+	animation: float-in 0.5s 1.2s ease both; 
+}
+
+body > footer > address {
+	font-style: normal;
+
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	margin-bottom: 0.5rem;
+	margin-left: -1.4rem;
+}
+
+body > footer > address > a {
+	text-decoration: none;
+
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+
+	padding: 0.5rem 1rem;
+	transition: opacity 0.15s ease;
+}
+
+body > footer > address > a > img {
+	width: 2.4rem;
+	height: 2.4rem;
+}
+
+body > footer > address:has(a:hover) > a:not(:hover) {
+	opacity: 0.6;
+}
+
+
+
+
+
+/* body { */
+	/* background: linear-gradient(#e66465, #9198e5); */
+/* } */
+
+@media (max-aspect-ratio: 11/14) {
+	:root {
+		--text-scale: 0.8svh;
+	}
+	body {
+		grid-template:
+			"h1" auto
+			"h2" auto
+			"nav" minmax(max-content, 1fr)
+			"footer" auto
+			/ 1fr;
+		padding: calc(4 * var(--text-scale));
+	}
+
+	body > h1 {
+		text-align: left;
+		font-size: 1.5em;
+		letter-spacing: 0.02em;
+	}
+}
+
+@media (max-aspect-ratio: 1/2) {
+	:root {
+		--text-scale: 0.6svh;
+	}
+}
+
+@media (max-aspect-ratio: 2/5) {
+	:root {
+		--text-scale: 0.4svh;
+	}
+}
+
+@media (max-height: 50rem) {
+	body > footer > address > a {
+		padding: 0.25rem 1rem;
+	}
+	body > footer > address > a > img {
+		width: 1.2rem;
+		height: 1.2rem;
+	}
+}
